@@ -1,18 +1,17 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v6.0/win-x64",
+    "name": ".NETCoreApp,Version=v6.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v6.0": {},
-    ".NETCoreApp,Version=v6.0/win-x64": {
-      "Rouvari.CodeChallenge/1.0.0": {
+    ".NETCoreApp,Version=v6.0": {
+      "rouvarim.githubUserSearch/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
         },
         "runtime": {
-          "Rouvari.CodeChallenge.dll": {}
+          "rouvarim.githubUserSearch.dll": {}
         }
       },
       "Newtonsoft.Json/13.0.2": {
@@ -26,7 +25,7 @@
     }
   },
   "libraries": {
-    "Rouvari.CodeChallenge/1.0.0": {
+    "rouvarim.githubUserSearch/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
