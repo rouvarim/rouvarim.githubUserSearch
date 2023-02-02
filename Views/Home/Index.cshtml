@@ -1,0 +1,33 @@
+﻿@page
+@model IndexViewModel
+@{
+    ViewBag.Title = "GitHub User Search";
+    ViewBag.SubTitle = "Rouvarim.CodeChallenge";
+}
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $("#charsUsed").text($("#searchInput").attr("maxLength") - $("#searchInput").val().length)
+        });
+        
+        function onSearchInputChange(val){
+            $("#charsUsed").text($("#searchInput").attr("maxLength") - val.value.length)
+        }
+
+        var executeSearchUrl = "@Url.Action("ExecuteSearch", "Home")";
+        $("#executeSearch").click(function() {
+            $("#searchResultsContainer").empty();
+            $("#searchResultsContainer").text("Loading results...");
+            $("#searchResultsContainer").load(executeSearchUrl, { searchText: $("#searchInput").val()});
+        })
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-5">Search @ViewBag.userCount users</h1>
+    <input id="searchInput" name="searchInput" oninput="onSearchInputChange(this)" type="text" maxlength="256" style="width:40%" /><button id="executeSearch" class="btn"><i class="bi bi-search"></i></button>
+    <p><span id="charsUsed">256</span>/256 characters remaining</p>
+    <p></p>
+    <p>Please see <a href="https://docs.github.com/en/search-github/searching-on-github/searching-users">Searching users - GitHub Docs</a> for more information regarding query syntax.</p>
+</div>
+<div id="searchResultsContainer" class="text-center"></div>

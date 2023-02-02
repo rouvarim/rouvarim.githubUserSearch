@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using CodeChallenge.Models
+@model GitHubSearchResults
+<div class="text-center border-1">
+    <p></p>
+    <div style="font-size: 2rem;">Results: @Model.TotalCount</div>
+    
+    @foreach(var user in Model.Users)
+    {
+        <div id="user_@user.Login" class="table text-left bordered rounded-2 p-3 d-md-block" style="background-color: lightslategrey; border: 1px solid black;">
+            <div class="table-row">
+                <div class="cell">
+                    <a href="@user.HtmlUrl"><img src="@user.AvatarUrl" width="90" /></a>
+                </div>
+                <div class="table">
+                    <div class="table-row">
+                        <div class="cell">
+                            Name: @(user.UserDetails.Name.Length > 0 ? @user.UserDetails.Name : "N/A")
+                        </div>
+                        <div class="cell">
+                            Company: @(user.UserDetails.Company.Length > 0 ? @user.UserDetails.Company : "N/A")
+                        </div>
+                        <div class="cell">
+                            Location: @(user.UserDetails.Location.Length > 0 ? @user.UserDetails.Location : "N/A")
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="cell">
+                            Bio: @(user.UserDetails.Bio.Length > 0 ? @user.UserDetails.Bio : "N/A")
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="cell">
+                            Stars: @user.UserDetails.StarCount
+                        </div>
+                        <div class="cell">
+                            Following: @user.UserDetails.FollowingCount
+                        </div>
+                        <div class="cell">
+                            Followers: @user.UserDetails.FollowerCount
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+    @{
+        string PrevDis = !Model.HasPreviousPage ? "disabled" : "";
+        string NextDis = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <button id="btnPrev" class="btn" @PrevDis><i class="bi bi-arrow-left-square"></i></button>
+    <button id="btnNext" class="btn" @NextDis><i class="bi bi-arrow-right-square"></i></button>
+</div>
+
+<script>
+        var changeResultsPageUrl = "@Url.Action("ChangeResultsPage", "Home")";
+        $("#btnPrev").click(function() {
+            $("#searchResultsContainer").load(changeResultsPageUrl, { newPageNumber: (@Model.PageNumber - 1) });
+        })
+
+        $("#btnNext").click(function() {
+            $("#searchResultsContainer").load(changeResultsPageUrl, { newPageNumber: (@Model.PageNumber + 1) });
+        })
+</script>
